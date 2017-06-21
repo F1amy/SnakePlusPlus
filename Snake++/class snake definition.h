@@ -12,13 +12,15 @@ private:
 	int *tailY = new int[width * height];
 	int difficulty;
 	enum eDirection {
-		STOP = 0,
+		STOP,
 		LEFT, RIGHT,
 		UP, DOWN
 	};
 	eDirection direction;
 	eDirection newDirection;
 public:
+	void hideCursor();
+	void clearScreen();
 	bool gameOver;
 	snake(int diff = 0);
 	~snake();

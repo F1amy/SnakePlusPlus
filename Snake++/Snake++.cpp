@@ -11,6 +11,7 @@ int main() {
 	string input = "NONE";
 	const string theme = "0123456789ABCDEF";
 	int choose = 0, difficulty = 0, count = 0;
+	system("color 0A");
 	system("mode con cols=77 lines=32");
 	system("title Snake++");
 	do {
@@ -98,7 +99,7 @@ int main() {
 		}
 	} while (choose < 1 || choose > 4);
 	snake game(choose);
-
+	game.hideCursor();
 	while (!game.gameOver) {
 		game.input();
 		game.logic();
@@ -108,6 +109,5 @@ int main() {
 	Sleep(2500);
 	while (_kbhit()) _getch();
 	_getch();
-	system("cls");
 	return 0;
 }

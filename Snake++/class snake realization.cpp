@@ -12,8 +12,10 @@ snake::snake(int diff) {
 	x = width / 2;
 	y = height / 2;
 	srand((unsigned int)time(NULL));
-	fruitX = rand() % (width - 2) + 1;
-	fruitY = rand() % height;
+	do {
+		fruitX = rand() % (width - 2) + 1;
+		fruitY = rand() % height;
+	} while (fruitX == x && fruitY == y);
 	score = 0, nTail = 3;
 	tailX[0] = x - 1;
 	tailY[0] = y;
@@ -28,10 +30,28 @@ snake::~snake() {
 	delete[] tailY;
 }
 
+void snake::hideCursor() {
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO info;
+	info.dwSize = 100;
+	info.bVisible = FALSE;
+	SetConsoleCursorInfo(consoleHandle, &info);
+}
+
+void snake::clearScreen() {
+	HANDLE hOut;
+	COORD Position;
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	Position.X = 0;
+	Position.Y = 0;
+	SetConsoleCursorPosition(hOut, Position);
+}
+
 void snake::draw() {
 	if (change) {
-		system("mode con cols=77 lines=32");
-		system("cls");
+		/*	system("mode con cols=77 lines=32");	*/
+		/*	system("cls");	*/
+		clearScreen();
 		cout << endl;
 		for (int i = 0; i < width; i++) {
 			if (i == 0)
@@ -89,15 +109,18 @@ void snake::draw() {
 		cout.fill(' ');
 		cout.width(10);
 		cout << left << score;
-		cout << "        ";
+		cout << "   ";
 		cout.fill(' ');
-		cout.width(12);
-		if (!gameOver) {
-			cout << left << "   Snake++";
+		cout.width(22);
+		if (direction == STOP) {
+			cout << left << "Press WASD to continue";
+		}
+		else if (!gameOver) {
+			cout << left << "        Snake++";
 		}
 		else
-			cout << left << "  Game over!";
-		cout << "                    ";
+			cout << left << "       Game over!";
+		cout << "               ";
 		cout.fill(' ');
 		cout.width(6);
 		switch (difficulty) {
@@ -134,6 +157,9 @@ void snake::input() {
 			break;
 		case 68: //D
 			newDirection = RIGHT;
+			break;
+		case 80:
+			newDirection = STOP;
 			break;
 		case 88: //X
 			gameOver = true;
@@ -184,6 +210,9 @@ void snake::logic() {
 			}
 		}
 		break;
+	case STOP:
+		direction = newDirection;
+		break;
 	default:
 		break;
 	}
@@ -212,6 +241,8 @@ void snake::logic() {
 		x++;
 		change = true;
 		break;
+	case STOP:
+		break;
 	default:
 		break;
 	}
@@ -236,8 +267,10 @@ void snake::logic() {
 	}
 	srand((unsigned int)time(NULL));
 	if (x == fruitX && y == fruitY) {
-		fruitX = rand() % (width - 2) + 1;
-		fruitY = rand() % height;
+		do {
+			fruitX = rand() % (width - 2) + 1;
+			fruitY = rand() % height;
+		} while ((fruitX == x && fruitY == y) || gameOver == true);
 		score += 10;
 		nTail++;
 	}
