@@ -112,11 +112,12 @@ void snake::draw() {
 		cout << "   ";
 		cout.fill(' ');
 		cout.width(22);
-		if (direction == STOP) {
-			cout << left << "Press WASD to continue";
-		}
-		else if (!gameOver) {
-			cout << left << "        Snake++";
+		if (!gameOver) {
+			if (direction == STOP) {
+				cout << left << "Press WASD to continue";
+			}
+			else
+				cout << left << "        Snake++";
 		}
 		else
 			cout << left << "       Game over!";
@@ -242,6 +243,7 @@ void snake::logic() {
 		change = true;
 		break;
 	case STOP:
+		change = true;
 		break;
 	default:
 		break;
