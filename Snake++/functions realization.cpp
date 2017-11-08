@@ -129,12 +129,12 @@ void snake::startGame() {
 			<< "                |     Please write one of the following     |" << endl
 			<< "                |        numbers from the left bar.         |" << endl
 			<< "                |                                           |" << endl
-			<< "                | F1amy           18.06.2017           v1.0 |" << endl
+			<< "                | F1amy           18.06.2017           v1.2 |" << endl
 			<< "                +-------------------------------------------+\n" << endl
 			<< "           " << "+-Difficulty-+" << "   +------------How-to-play-------------+" << endl
-			<< "           " << "| 1 | Slug   |" << "   | Move around using WASD (only eng.) |" << endl //or arrow keys
-			<< "           " << "|------------|" << "   | key) or arrow keys. Try to eat all |" << endl
-			<< "           " << "| 2 | Worm   |" << "   | the fruits around you. You can go  |" << endl
+			<< "           " << "| 1 | Slug   |" << "   | Move around using WASD (only eng.) |" << endl
+			<< "           " << "|------------|" << "   | or arrow keys. Try to eat all the  |" << endl
+			<< "           " << "| 2 | Worm   |" << "   | fruits around you. You can go      |" << endl
 			<< "           " << "|------------|" << "   | through walls, appearing on the    |" << endl
 			<< "           " << "| 3 | Snake  |" << "   | other side. If you try to eat      |" << endl
 			<< "           " << "|------------|" << "   | yourself, you'll die. You can end  |" << endl
@@ -208,7 +208,7 @@ void snake::gameLoop() {
 	}
 	//sleep(2500);
 	string msgScore = "\tCongratulations! You have finished the game.\nStats: Your score is " + to_string(score) + ", the size of your tail is "
-		+ to_string(nTail) + ", you ate " + to_string(nTail - 3) + " fruits.";
+		+ to_string(nTail) + ", you have eaten " + to_string(nTail - 3) + " fruits.";
 	wstring stemp = wstring(msgScore.begin(), msgScore.end());
 	LPCWSTR message = stemp.c_str();
 	MessageBox(NULL, message, L"Game over!", MB_OK);

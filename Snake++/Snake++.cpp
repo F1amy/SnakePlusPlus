@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "header.h"
 
-using namespace std;
+//using namespace std;
 
 int main() {
 	snake snakeGame;
